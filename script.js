@@ -193,5 +193,92 @@
 //40강
 
 const friends = ['Michael', 'Steven', 'Peter']
+
+//add elements
 friends.push('Jay');
+const newlength = friends.push('Chris');
+console.log(newlength);
+
+friends.unshift('John');
 console.log(friends);
+
+//remove elements
+friends.pop(); // removing Last element
+const popped = friends.pop();
+console.log(popped);
+console.log(friends);
+
+friends.unshift(); // removing first element
+console.log(friends);
+
+console.log(friends.indexOf('Steven'));
+
+friends.push(23);
+console.log(friends.includes('Steven'));
+console.log(friends.includes('Bob'));
+console.log(friends.includes('23')); // 이게 false로 나오는 이유? strict하게 판단되므로 type coercion이 일어나지 않음
+console.log(friends.includes(23)); // 이건 true임 - 정확히 같은 type이므로 
+
+if (friends.includes('Peter')); {
+    console.log('You have a friend called Peter');
+}
+
+
+//42강
+
+const jonasArray = [
+    'Jonas',
+    'Schemedtmann',
+    2037 - 1991,
+    'teacher',
+    ['Michael', 'Peter', 'Steven']
+];
+
+const jonas = {
+    firstName: 'Jonas',
+    lastName: 'Schemedtmann',
+    age: 2037 - 1991,
+    job: 'teacher',
+    friends: ['Michael', 'Peter', 'Steven']
+};
+
+
+
+//43강
+console.log(jonas);
+
+console.log(jonas.lastName);
+console.log(jonas['lastName']);
+
+const nameKey = 'Name';
+console.log(jonas['first' + nameKey]);
+console.log(jonas['last' + nameKey]);
+
+//console.log(jonas.'last' + nameKey); //오류!!
+
+const interestedIn = prompt('What do you want to know about Jonas? Choose between firstName, lastName, age, job, and friends');
+console.log(jonas.interestedIn); // Dot notation => 작동안함! ( undefined )
+console.log(jonas[interestedIn]); // Bracket notation에서는 'const interestedIn' 값을 대입하여 계산해주기 때문에 작동함!
+
+if (jonas[interestedIn]) {
+    console.log(jonas[interestedIn]);
+} else {
+    console.log('Wrong request! Choose between firstName, lastName, age, job, and friends');
+}
+
+jonas.location = 'Portugal';
+jonas['twitter'] = '@jonasschemedtmann';
+console.log(jonas);
+
+
+//challenge
+// "Jonas has 3 friends, and his best friend is called Michael"
+
+console.log(`
+${jonas.firstName} has ${jonas.friends['length']} friends, and hist best friend is called ${jonas.friends[0]}`) //내정답
+console.log(`
+${jonas.firstName} has ${jonas.friends.length} friends, and hist best friend is called ${jonas.friends[0]}`) //조나쓰정답
+// DOT와 BRACKET 모두 LET-TO-RIGHT 으로 읽기 때문에 jonas.friends.length의 경우 jonas.friends 먼저 읽고 그다음 friends.length(3)을 읽어서 결과값이 3이 되는 것
+
+
+//우와 맞춰따 나천잰가(???)
