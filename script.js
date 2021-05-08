@@ -1,188 +1,29 @@
 'use strict';
 
-/*
-console.log(document.querySelector('.message').textContent);
-document.querySelector('.message').textContent = '🎉 Correct Number!';
+const modal = document.querySelector('.modal');
+const overlay = document. querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnsOpenModal = document.querySelectorAll('.show-modal');
+console.log(btnsOpenModal);
 
-document.querySelector('.number').textContent = 13;
-document.querySelector('.score').textContent = 10;
 
-document.querySelector('.guess').value = 23;
-console.log(document.querySelector('.guess').value);
-*/
+const closeModal = function() { // refactoring 1
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');  // overlay = modal 바깥의 배경을 시꺼멓게
+}
 
-let secretNumber = [218, 309, 901, 912, 1013, 1204, 1230, 613];
-let score = 20;
-let highscore = 0;
+const openModal = function () { // refactoring 2
+    console.log('Button clicked');
+    modal.classList.remove('hidden'); // 이처럼 이미 존재하는 요소에 hidden을 붙였다 뗐다 함으로써 activate / deactivate 할수있음
+    overlay.classList.remove('hidden');
+}
 
-const displayMessage = function (message) {
-  document.querySelector('.message').textContent = message;
-};
+for (let i = 0; i < btnsOpenModal.length; i++)
+console.log(btnsOpenModal[i].addEventListener('click', openModal)); // remember: 이벤트리스너 뒤에 두번째 매개변수에 function이 올때 openModal() 이런식으로 써서는 안됨. 이벤트리스너 자체에 이미 실행기능이 있기 때문에 함수 써줄때는 openModal 이렇게만 쓰면됨
 
-document.querySelector('.check').addEventListener('click', function () {
-  const guess = Number(document.querySelector('.guess').value);
-  console.log(guess, typeof guess);
 
-  // When there is no input
-  if (!guess) {
-    // document.querySelector('.message').textContent = '⛔️ No number!';
-    displayMessage('⛔️ No number!');
+btnCloseModal.addEventListener('click', closeModal);
 
-    // When player wins
-  } else if (guess === secretNumber[0]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('🙄 Cur...tain?');
-    document.querySelector('.number').textContent = secretNumber[0];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('JHOPE_2.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
+overlay.addEventListener('click', closeModal);
 
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[1]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('😾 ya jajonshimdo upnya!');
-    document.querySelector('.number').textContent = secretNumber[1];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('SUGA_2.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
 
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[2]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('😣 4...4 Ddalla?');
-    document.querySelector('.number').textContent = secretNumber[2];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('JK.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
-
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[3]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('😝 bugatiii ggaaaaaang~~~~');
-    document.querySelector('.number').textContent = secretNumber[3];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('RM_2.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
-
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[4]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('🥰 Gudok, Joahyo, Alarm suljeong~ ><');
-    document.querySelector('.number').textContent = secretNumber[4];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('JIMIN_2.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
-
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[5]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('😘 Gudok, Joahyo, Alarm suljeong ggaji!');
-    document.querySelector('.number').textContent = secretNumber[5];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('JIN_2.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
-
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[6]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('😃 uh? Ricafrio!!!');
-    document.querySelector('.number').textContent = secretNumber[6];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('V.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
-
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-  } else if (guess === secretNumber[7]) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
-    displayMessage('🌸 Our Forever HYYH');
-    document.querySelector('.number').textContent = secretNumber[7];
-    document.querySelector('.number').style.width = '25rem';
-    document.querySelector('body').style.backgroundImage = "url('bts.jpg')";
-    document.querySelector('body').style.backgroundSize = cover;
-
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
-    }
-
-    // When guess is wrong
-  } else if (guess !== secretNumber) {
-    if (score > 0) {
-      displayMessage("🤦‍♀️🤦‍♂️ Wrong Number! it's super easy");
-      score--;
-      document.querySelector('.score').textContent = score;
-    } else if (score === 0) {
-      displayMessage('👋 You BABO! no more chance');
-      document.querySelector('.score').textContent = 0;
-    }
-  }
-
-  //   // When guess is too high
-  // } else if (guess > secretNumber) {
-  //   if (score > 1) {
-  //     document.querySelector('.message').textContent = '📈 Too high!';
-  //     score--;
-  //     document.querySelector('.score').textContent = score;
-  //   } else {
-  //     document.querySelector('.message').textContent = '💥 You lost the game!';
-  //     document.querySelector('.score').textContent = 0;
-  //   }
-
-  //   // When guess is too low
-  // } else if (guess < secretNumber) {
-  //   if (score > 1) {
-  //     document.querySelector('.message').textContent = '📉 Too low!';
-  //     score--;
-  //     document.querySelector('.score').textContent = score;
-  //   } else {
-  //     document.querySelector('.message').textContent = '💥 You lost the game!';
-  //     document.querySelector('.score').textContent = 0;
-  //   }
-  // }
-});
-
-document.querySelector('.again').addEventListener('click', function () {
-  score = 20;
-  document.querySelector('.score').textContent = score;
-  document.querySelector('body').style.backgroundColor = '#f7badd';
-  document.querySelector('body').style.backgroundImage = '';
-  document.querySelector('.number').textContent = '?';
-  document.querySelector('.guess').value = '';
-  document.querySelector('.number').style.width = '15rem';
-  displayMessage('Start guessing...');
-});
-
-///////////////////////////////////////
-// Coding Challenge #1
-
-/* 
-Implement a game reset functionality, so that the player can make a new guess! Here is how:
-
-1. Select the element with the 'again' class and attach a click event handler
-2. In the handler function, restore initial values of the score and secretNumber variables
-3. Restore the initial conditions of the message, number, score and guess input field
-4. Also restore the original background color (#222) and number width (15rem)
-
-GOOD LUCK 😀
-*/
