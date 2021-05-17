@@ -1,29 +1,39 @@
 'use strict';
 
-const modal = document.querySelector('.modal');
-const overlay = document. querySelector('.overlay');
-const btnCloseModal = document.querySelector('.close-modal');
-const btnsOpenModal = document.querySelectorAll('.show-modal');
-console.log(btnsOpenModal);
+function calcAge(birthYear) {
+    const age = 2037 - birthYear;
+
+    function printAge() {
+        let output = `${firstName}, You are ${age}, born in ${birthYear}`
+        console.log(output);
 
 
-const closeModal = function() { // refactoring 1
-    modal.classList.add('hidden');
-    overlay.classList.add('hidden');  // overlay = modal 바깥의 배경을 시꺼멓게
+        if(birthYear >= 1981 && birthYear <= 1996) {
+            var millenial = true; // var 변수는 블록 스코프에 소속되지 않음. 대신 가장 가까운 펑션 스코프에 소속됨
+            const firstName = 'Steven'; // 이 경우 아래 백틱 구문에는 Steven이 뜬다. 왜냐? 항상 current scope에서 가장 가까운 곳으로부터 답을 찾으려하기 때문
+            const str = `Oh, and you're a millenial, ${firstName}`;
+            console.log(str);
+
+            function add(a,b) {
+                return a + b;
+            }
+
+
+            output = 'NEW OUTPUT' // 아우터 스코프에 소속된 변수를 이너 블록안에서 재할당
+        }
+
+    // console.log(str); // 당연히 reference error
+    console.log(millenial);
+    // add(2,3); // 당연히 reference error - 블록스코프에 소속된 함수는 inner scope
+    console.log(output);
+
+    }
+
+    printAge();
+
+    return age;
 }
 
-const openModal = function () { // refactoring 2
-    console.log('Button clicked');
-    modal.classList.remove('hidden'); // 이처럼 이미 존재하는 요소에 hidden을 붙였다 뗐다 함으로써 activate / deactivate 할수있음
-    overlay.classList.remove('hidden');
-}
 
-for (let i = 0; i < btnsOpenModal.length; i++)
-console.log(btnsOpenModal[i].addEventListener('click', openModal)); // remember: 이벤트리스너 뒤에 두번째 매개변수에 function이 올때 openModal() 이런식으로 써서는 안됨. 이벤트리스너 자체에 이미 실행기능이 있기 때문에 함수 써줄때는 openModal 이렇게만 쓰면됨
-
-
-btnCloseModal.addEventListener('click', closeModal);
-
-overlay.addEventListener('click', closeModal);
-
-
+const firstName = 'Jonas'; // 이처럼 글로벌 스코프에 firstName이 있고, 위의 if 블록 스코프 안에 firstName이 있어 두개의 이름이 겹치지만, 문제되지 않는다. 왜냐면 두 변수가 소속하는 스코프가 다르기 때문이다. 그러면 이름만 같을 뿐 전혀다른 변수이게 된다.
+calcAge(1991);
